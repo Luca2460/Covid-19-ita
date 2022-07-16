@@ -235,7 +235,7 @@ data = [("2020-12-20", 1, "valle", "y"),
         ("2021-03-15", 1, "liguria", "o"),
         ("2021-04-26", -1, "liguria", "o"),
         ("2020-11-29", 1, "lombardia", "o"),
-        ("2020-02-13", -1, "lombardia", "o"),
+        ("2020-12-13", -1, "lombardia", "o"),
         ("2021-01-11", 1, "lombardia", "o"),
         ("2021-01-17", -1, "lombardia", "o"),
         ("2021-01-24", 1, "lombardia", "o"),
@@ -405,7 +405,7 @@ data = [("2020-12-20", 1, "valle", "y"),
         ("2022-03-21", 1, "calabria", "w"),
         ("2022-04-01", -1, "calabria", "w"),
         ("2021-06-21", 1, "sicilia", "w"),
-        ("2022-08-30", -1, "sicilia", "w"),
+        ("2021-08-30", -1, "sicilia", "w"),
         ("2021-10-09", 1, "sicilia", "w"),
         ("2022-01-03", -1, "sicilia", "w"),
         ("2022-03-14", 1, "sicilia", "w"),
@@ -483,21 +483,62 @@ data = [("2020-12-20", 1, "valle", "y"),
         ("2021-01-09", 1, "all", "o"),
         ("2021-01-11", -1, "all", "o"),
         ("2020-12-24", 1, "all", "r"),
-        ("2020-12-28", -1, "all", "r"),]
-    
+        ("2020-12-28", -1, "all", "r"),
+        ("2020-12-31", 1, "all", "r"),
+        ("2021-01-04", -1, "all", "r"),
+        ("2021-01-05", 1, "all", "r"),
+        ("2021-01-07", -1, "all", "r"),
+        ("2021-04-03", 1, "all", "r"),
+        ("2021-04-06", -1, "all", "r"),]
+data = sorted(data)
+
+total_population = 59.37
+regions = {"valle": 0.1257,
+           "piemonte": 4.356,
+           "liguria": 1.551,
+           "lombardia": 10.06,
+           "veneto": 4.906,
+           "friuli": 1.215,
+           "emilia": 4.459,
+           "toscana": 3.73,
+           "umbria": 0.882,
+           "marche": 1.525,
+           "lazio": 5.898,
+           "abruzzo": 1.32,
+           "molise": 0.305,
+           "campania": 5.802,
+           "puglia": 4.092,
+           "basilicata": 0.562,
+           "calabria": 1.947,
+           "sicilia": 5,
+           "sardegna": 1.64,
+           "all": total_population}
+
+percentages = {"w": 0, "y": 0, "o": 0, "r": 0}
+
+times_and_percentages = []
+
+curr_date = data[0][0]
+for date in data:
+    if date[0] != curr_date:
+        times_and_percentages.append([curr_date, 
+                                      float(percentages["w"]),
+                                      float(percentages["y"]),
+                                      float(percentages["o"]),
+                                      float(percentages["r"])])
+    curr_date = date[0]
+
+    if date[1] == 1:
+        percentages[date[3]] += regions[date[2]] / total_population
+
+    elif date[1] == -1:
+        percentages[date[3]] -= regions[date[2]] / total_population
+
+times_and_percentages.append([curr_date, 
+                                      float(percentages["w"]),
+                                      float(percentages["y"]),
+                                      float(percentages["o"]),
+                                      float(percentages["r"])])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# aggiungi blocchi di tutte le regioni assieme
+print(times_and_percentages)
