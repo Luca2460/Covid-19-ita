@@ -5,5 +5,4 @@ Repository contaning the work done to simulate the COVID-19 pandemic in Italy us
 
 
 iss_rt_italia.csv : Rt data for Italy provided by ISS.
-
 intervetions.csv : List of government interventions (qualitative) since the start of the pandemic.
